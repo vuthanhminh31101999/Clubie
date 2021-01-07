@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+<div class="container">
+    <form action="/Users/DoLogin">
+        <div class="form-group">
+            <label for="username">Tên người dùng:</label>
+            <input type="text" class="form-control" id="username" name="username">
+        </div>
+        <div class="form-group">
+            <label for="password">Mật khẩu:</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox"> Lưu mật khẩu</label>
+        </div>
+        <button type="submit" class="btn btn-default">Đăng nhập</button>
+    </form>
+</div>

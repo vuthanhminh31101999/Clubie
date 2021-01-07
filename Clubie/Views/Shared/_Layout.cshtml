@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container form-inline">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Home", "Search", "Products", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <form action="/Products/Search">
+                            <input class="form-control navbar-form" type="text" placeholder="Search.." name="searchString">
+                        </form>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Convert.ToBoolean(Session["Login"]) == true)
+                    {
+                        <li>
+                            @Html.ActionLink("Cart", "Index", "OrderDetails", routeValues: null, htmlAttributes: new { id = "" })
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wellcome @Session["Username"]! <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    @Html.ActionLink("Change Password", "ChangePassword", "Manage", routeValues: null, htmlAttributes: new { id = "resetPasswordLink" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Log out", "LogOff", "Users", routeValues: null, htmlAttributes: new { id = "logoutLink" })
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink("Register", "Register", "Users", routeValues: null, htmlAttributes: new { id = "" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Login", "Login", "Users", routeValues: null, htmlAttributes: new { id = "" })
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
