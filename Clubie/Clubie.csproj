@@ -273,8 +273,10 @@
     <Content Include="Views\ProductImages\Edit.cshtml" />
     <Content Include="Views\ProductImages\Index.cshtml" />
     <Content Include="Views\Products\Search.cshtml" />
-    <Content Include="Views\OrderDetails\Index.cshtml" />
+    <Content Include="Views\OrderDetails\InOrder.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\ProceedToCheckout.cshtml" />
+    <Content Include="Views\OrderDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

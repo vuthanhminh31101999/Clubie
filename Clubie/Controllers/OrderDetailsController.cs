@@ -14,8 +14,14 @@ namespace Clubie.Controllers
     {
         private ClothingStoreEntities db = new ClothingStoreEntities();
         // GET: OrderDetails
-        
+
         public ActionResult Index()
+        {
+            var orderDetails = db.OrderDetails.Include(o => o.Product).Include(o => o.Order);
+            return View(orderDetails.ToList());
+        }
+
+        public ActionResult InOrder()
         {
             int orderId = Convert.ToInt32(Session["OrderId"]);
             var orderDetails = db.OrderDetails.Include(o => o.Product).Include(o => o.Order).Where(o => o.OrderId == orderId);

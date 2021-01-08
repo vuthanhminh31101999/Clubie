@@ -55,20 +55,7 @@ namespace Clubie.Controllers
             }
             if (!FindExistOrder(Convert.ToInt32(Session["RoleId"])))
             {
-                Order order = new Order();
-                order.OrderId = 0;
-                foreach (var k in db.Orders)
-                {
-                    if (order.OrderId == k.OrderId)
-                        order.OrderId = order.OrderId + 1;
-                    else
-                        break;
-                }
-                Session["OrderId"] = order.OrderId;
-                order.UserId = Convert.ToInt32(Session["UserId"]);
-                order.DeliveryStatus = "None";
-                db.Orders.Add(order);
-                db.SaveChanges();
+                NewOrder();
             }
 
             if (db.Roles.Find(Convert.ToInt32(Session["RoleId"])).RoleName == "Admin")
@@ -77,6 +64,24 @@ namespace Clubie.Controllers
             }
             else
                 return RedirectToAction("Search", "Products");
+        }
+
+        public void NewOrder()
+        {
+            Order order = new Order();
+            order.OrderId = 0;
+            foreach (var k in db.Orders)
+            {
+                if (order.OrderId == k.OrderId)
+                    order.OrderId = order.OrderId + 1;
+                else
+                    break;
+            }
+            Session["OrderId"] = order.OrderId;
+            order.UserId = Convert.ToInt32(Session["UserId"]);
+            order.DeliveryStatus = "None";
+            db.Orders.Add(order);
+            db.SaveChanges();
         }
 
         //Register
