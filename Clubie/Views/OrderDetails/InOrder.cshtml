@@ -29,33 +29,37 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductPromotionPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Order.DeliveryPhoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product.ProductCode)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OrderDetailId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OrderDetailId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OrderDetailId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductPromotionPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order.DeliveryPhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.ProductCode)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.OrderDetailId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.OrderDetailId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.OrderDetailId })
+            </td>
+        </tr>
+    }
 <tr>
-    <th colspan="6">
+    <th colspan="3">
         <input type="button" value="Proceed to Checkout" class="btn btn-default form-control" style="width:200px; float:right" onclick="location.href='@Url.Action("ProceedToCheckout", "Orders")'" />
+    </th>
+    <th colspan="3">
+        <input type="button" value="Delete Cart" class="btn btn-danger form-control" style="width:200px; float:left" onclick="location.href='@Url.Action("DeleteCart", "Orders")'" />
     </th>
 </tr>
 

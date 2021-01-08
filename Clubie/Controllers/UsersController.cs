@@ -18,6 +18,7 @@ namespace Clubie.Controllers
         public ActionResult LogOff()
         {
             Session.Clear();
+            Session.Abandon();
             return RedirectToAction("Login", "Users");
         }
 
@@ -27,9 +28,9 @@ namespace Clubie.Controllers
             return View();
         }
 
-        public bool FindExistOrder(int roleId)
+        public bool FindExistOrder(int userId)
         {
-            var orders = db.Orders.Include(o => o.User).Where(o => o.UserId == roleId);
+            var orders = db.Orders.Include(o => o.User).Where(o => o.UserId == userId);
             foreach (var i in orders)
             {
                 if (i.DeliveryStatus == "None")
@@ -53,7 +54,7 @@ namespace Clubie.Controllers
                     Session["RoleId"] = i.RoleId;
                 }
             }
-            if (!FindExistOrder(Convert.ToInt32(Session["RoleId"])))
+            if (!FindExistOrder(Convert.ToInt32(Session["UserId"])))
             {
                 NewOrder();
             }

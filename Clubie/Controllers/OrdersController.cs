@@ -28,6 +28,32 @@ namespace Clubie.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult DeleteCart()
+        {
+            var orders = db.Orders.Include(o => o.User);
+            Order order = new Order();
+            foreach (var i in orders)
+            {
+                if (i.DeliveryStatus == "None" && i.UserId == Convert.ToInt32(Session["UserId"]))
+                {
+                    order = i;
+                    break;
+                }
+            }
+            List<int> listRemove = new List<int>();
+            var orderDetail = db.OrderDetails.Where(o => o.OrderId == order.OrderId).Include(o => o.Order).Include(o => o.Product);
+            foreach (var i in orderDetail)
+            {
+                listRemove.Add(i.OrderDetailId);
+            }
+            for (int i = 0; i < listRemove.Count(); i++)
+            {
+                db.OrderDetails.Remove(db.OrderDetails.Find(listRemove[i]));
+                db.SaveChanges();
+            }
+            return RedirectToAction("InOrder", "OrderDetails");
+        }
+
         //Proceed to Checkout
         public ActionResult ProceedToCheckout()
         {

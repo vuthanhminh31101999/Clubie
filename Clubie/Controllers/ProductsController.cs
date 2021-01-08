@@ -23,8 +23,9 @@ namespace Clubie.Controllers
                 return RedirectToAction("Login", "Users");
             }
             bool exist = false;
-            foreach (var i in db.OrderDetails)
+            foreach (var i in db.OrderDetails.Include(o => o.Order))
             {
+                if (i.OrderId == Convert.ToInt32(Session["OrderId"]))
                 if (i.ProductId == id)
                 {
                     i.Amount++;
