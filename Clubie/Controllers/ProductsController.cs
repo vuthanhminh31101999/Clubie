@@ -2,20 +2,31 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Clubie.Models;
 
-namespace Clubie.Controllers
+namespace Clubie.Content
 {
     public class ProductsController : Controller
     {
         private ClothingStoreEntities db = new ClothingStoreEntities();
 
-        //Add to order
+        [ChildActionOnly]
+        public ActionResult HotProducts()
+        {
+            var products = db.Products.Where(p => p.Classification == "Hot").Include(p => p.ProductCategory);
+            return PartialView("HotProducts", products.ToList());
+        }
+
+        [ChildActionOnly]
+        public ActionResult BestSeller()
+        {
+            var products = db.Products.Where(p => p.Classification == "Best seller").Include(p => p.ProductCategory);
+            return PartialView("BestSeller", products.ToList());
+        }
         public ActionResult AddToOrder(int id)
         {
             if (Convert.ToBoolean(Session["Login"]) != true)
@@ -26,12 +37,12 @@ namespace Clubie.Controllers
             foreach (var i in db.OrderDetails.Include(o => o.Order))
             {
                 if (i.OrderId == Convert.ToInt32(Session["OrderId"]))
-                if (i.ProductId == id)
-                {
-                    i.Amount++;
-                    exist = true;
-                    break;
-                }
+                    if (i.ProductId == id)
+                    {
+                        i.Amount++;
+                        exist = true;
+                        break;
+                    }
             }
             if (exist != true)
             {
@@ -55,6 +66,46 @@ namespace Clubie.Controllers
             return RedirectToAction("Search");
         }
 
+        //Add to order
+        public ActionResult BuyNow(int id)
+        {
+            if (Convert.ToBoolean(Session["Login"]) != true)
+            {
+                return RedirectToAction("Login", "Users");
+            }
+            bool exist = false;
+            foreach (var i in db.OrderDetails.Include(o => o.Order))
+            {
+                if (i.OrderId == Convert.ToInt32(Session["OrderId"]))
+                    if (i.ProductId == id)
+                    {
+                        i.Amount++;
+                        exist = true;
+                        break;
+                    }
+            }
+            if (exist != true)
+            {
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.OrderDetailId = 0;
+                foreach (var i in db.OrderDetails)
+                {
+                    if (orderDetail.OrderDetailId == i.OrderDetailId)
+                        orderDetail.OrderDetailId = orderDetail.OrderDetailId + 1;
+                    else
+                        break;
+                }
+                orderDetail.OrderId = Convert.ToInt32(Session["OrderId"]);
+                orderDetail.ProductId = id;
+                orderDetail.Amount = 1;
+                orderDetail.ProductPrice = db.Products.Find(id).Price;
+                orderDetail.ProductPromotionPrice = db.Products.Find(id).PromotionPrice;
+                db.OrderDetails.Add(orderDetail);
+            }
+            db.SaveChanges();
+            return RedirectToAction("InOrder", "OrderDetails");
+        }
+
         //Search
         public ActionResult Search(string searchString)
         {
@@ -62,7 +113,7 @@ namespace Clubie.Controllers
             {
                 searchString = "";
             }
-            var products = db.Products.Where(p => p.ProductName.Contains(searchString)).Include(p => p.ProductCategory);
+            var products = db.Products.Where(p => p.ProductName.Contains(searchString) || p.ProductCategory.ProductCategoryName == searchString).Where(p => p.Status == true).Include(p => p.ProductCategory);
             return View(products.ToList());
         }
 
@@ -100,7 +151,7 @@ namespace Clubie.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductId,ProductCategoryId,ProductCode,ProductName,MetaTitle,Color,Size,Description,Price,PromotionPrice,View,Classification,Status")] Product product, string[] files)
+        public ActionResult Create([Bind(Include = "ProductId,ProductCategoryId,ProductCode,ProductName,MetaTitle,Color,Size,Description,Price,PromotionPrice,View,Classification,Status,InStock")] Product product, string[] files)
         {
             if (ModelState.IsValid)
             {
@@ -111,6 +162,7 @@ namespace Clubie.Controllers
                     else
                         break;
                 }
+                product.ImageName = files.FirstOrDefault();
                 db.Products.Add(product);
                 db.SaveChanges();
                 foreach (string file in files)
@@ -159,7 +211,7 @@ namespace Clubie.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,ProductCategoryId,ProductCode,ProductName,MetaTitle,Color,Size,Description,Price,PromotionPrice,View,Classification,Status")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductId,ProductCategoryId,ProductCode,ProductName,MetaTitle,Color,Size,Description,Price,PromotionPrice,View,Classification,Status,InStock")] Product product)
         {
             if (ModelState.IsValid)
             {

@@ -48,6 +48,7 @@
     <Property Name="DeliveryStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="User" Relationship="Self.FK__Order__UserId__3D5E1FD2" FromRole="Order" ToRole="User" />
     <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Order__3F466844" FromRole="Order" ToRole="OrderDetail" />
+    <Property Name="PaymentMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -82,6 +83,8 @@
     <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Produ__3A81B327" FromRole="Product" ToRole="OrderDetail" />
     <NavigationProperty Name="ProductCategory" Relationship="Self.FK__Product__Product__3C69FB99" FromRole="Product" ToRole="ProductCategory" />
     <NavigationProperty Name="ProductImages" Relationship="Self.FK__ProductIm__Produ__398D8EEE" FromRole="Product" ToRole="ProductImage" />
+    <Property Name="InStock" Type="Int32" />
+    <Property Name="ImageName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ProductCategory">
     <Key>

@@ -3,112 +3,115 @@
 @{
     ViewBag.Title = "Details";
 }
+    <div class="col-xl-5 col-lg-5 col-md-6" style="padding-top:50px">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                @for (int i = 0; i < Model.ProductImages.Count(); i++)
+                {
+                    if (i == 0)
+                    {
+                        <li data-target="#myCarousel" data-slide-to="@i" class="active"></li>
+                    }
+                    else
+                    {
+                        <li data-target="#myCarousel" data-slide-to="@i"></li>
+                    }
+                }
+            </ol>
 
-<h2>Details</h2>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                @{ var productImage = Model.ProductImages; }
+                @for (int i = 0; i < productImage.Count(); i++)
+                {
+                    if (i == 0)
+                    {
+                        <div class="item active">
+                            <img src="~/Images/@productImage.ElementAt(i).ImageName" style="width:100%" alt="@i">
+                            <div class="carousel-caption">
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="item">
+                            <img src="~/Images/@productImage.ElementAt(i).ImageName" style="width: 100%" alt="@i">
+                            <div class="carousel-caption">
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductCode)
-        </dt>
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <div class="col-xl-7 col-lg-7 col-md-6">
+        <div class="single-product-details">
+            <h2>@Html.DisplayFor(model => model.ProductName)</h2>
+            <h5>
+                @if (Model.PromotionPrice != null)
+                {
+                    <del>@Html.DisplayFor(model => model.PromotionPrice)</del>
+                }
+                @Html.DisplayFor(model => model.Price) đ
+            </h5>
+            <p class="available-stock"><span> More than @Html.DisplayFor(model => model.InStock) available</span>
+            <p>
+                <h4>Short Description:</h4>
+            <p>
+                @Html.DisplayFor(model => model.Description)
+            </p>
+            <ul>
+                <li>
+                    <div class="form-group size-st">
+                        <label class="size-label">Size</label>
+                        <select id="basic" class="selectpicker show-tick form-control">
+                            <option value="0">Size</option>
+                            <option value="0">S</option>
+                            <option value="1">M</option>
+                            <option value="1">L</option>
+                            <option value="1">XL</option>
+                            <option value="1">XXL</option>
+                            <option value="1">3XL</option>
+                            <option value="1">4XL</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-group size-st">
+                        <label class="size-label">Color</label>
+                        <select id="basic" class="selectpicker show-tick form-control">
+                            <option value="0">Color</option>
+                            <option value="0">White</option>
+                            <option value="1">Black</option>
+                            <option value="1">Red</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-group quantity-box">
+                        <label class="control-label">Quantity</label>
+                        <input class="form-control" value="0" min="0" max="20" type="number">
+                    </div>
+                </li>
+            </ul>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductCode)
-        </dd>
+            <div class="price-box-bar">
+                <div class="cart-and-bay-btn">
+                    @Html.ActionLink("Buy Now", "BuyNow", "Products", new { id = Model.ProductId }, new { @class = "btn btn-danger"})
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MetaTitle)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MetaTitle)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Color)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Size)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Size)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PromotionPrice)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PromotionPrice)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.View)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.View)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Classification)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Classification)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductCategory.ProductCategoryName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductCategory.ProductCategoryName)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                    <a class="btn btn-success" data-fancybox-close="" href="/Products/BuyNow">Add to cart</a>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ClothingStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ClothingStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Feedback">
           <Key>
             <PropertyRef Name="FeedbackId" />
@@ -48,6 +48,7 @@
           <Property Name="DeliveryPhoneNumber" Type="char" MaxLength="11" />
           <Property Name="DeliveryAddress" Type="nvarchar" MaxLength="100" />
           <Property Name="DeliveryStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="PaymentMethod" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -77,6 +78,8 @@
           <Property Name="View" Type="int" />
           <Property Name="Classification" Type="nvarchar" MaxLength="50" />
           <Property Name="Status" Type="bit" />
+          <Property Name="InStock" Type="int" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="ProductCategory">
           <Key>
@@ -280,8 +283,7 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ClothingStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -333,6 +335,7 @@
           <Property Name="DeliveryStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User" Relationship="Self.FK__Order__UserId__3D5E1FD2" FromRole="Order" ToRole="User" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Order__3F466844" FromRole="Order" ToRole="OrderDetail" />
+          <Property Name="PaymentMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -367,6 +370,8 @@
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Produ__3A81B327" FromRole="Product" ToRole="OrderDetail" />
           <NavigationProperty Name="ProductCategory" Relationship="Self.FK__Product__Product__3C69FB99" FromRole="Product" ToRole="ProductCategory" />
           <NavigationProperty Name="ProductImages" Relationship="Self.FK__ProductIm__Produ__398D8EEE" FromRole="Product" ToRole="ProductImage" />
+          <Property Name="InStock" Type="Int32" />
+          <Property Name="ImageName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ProductCategory">
           <Key>
@@ -621,6 +626,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="ClothingStoreModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
@@ -645,6 +651,8 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="ClothingStoreModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="InStock" ColumnName="InStock" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
                 <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />

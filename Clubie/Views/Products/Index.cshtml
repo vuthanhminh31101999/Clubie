@@ -12,9 +12,6 @@
 <table class="table">
     <tr>
         <th>
-            Image
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ProductCode)
         </th>
         <th>
@@ -28,9 +25,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Size)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Price)
@@ -48,6 +42,9 @@
             @Html.DisplayNameFor(model => model.Status)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.InStock)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ProductCategory.ProductCategoryName)
         </th>
         <th></th>
@@ -55,9 +52,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            <img src="~/Images/@item.ProductImages.FirstOrDefault().ImageName" style="height:100px" />
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProductCode)
         </td>
@@ -74,9 +68,6 @@
             @Html.DisplayFor(modelItem => item.Size)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
@@ -90,6 +81,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InStock)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProductCategory.ProductCategoryName)

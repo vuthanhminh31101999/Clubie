@@ -159,8 +159,8 @@ C:\Users\Minh\Desktop\E-commerce\Clubie\Clubie\bin\System.Web.WebPages.Razor.xml
 C:\Users\Minh\Desktop\E-commerce\Clubie\Clubie\bin\Newtonsoft.Json.xml
 C:\Users\Minh\Desktop\E-commerce\Clubie\Clubie\bin\Antlr3.Runtime.pdb
 C:\Users\Minh\Desktop\E-commerce\Clubie\Clubie\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Minh\Desktop\E-commerce\Clubie\Clubie\obj\Debug\Clubie.csprojAssemblyReference.cache
 C:\Users\Minh\Desktop\E-commerce\Clubie\Clubie\obj\Debug\Clubie.csproj.CoreCompileInputs.cache
 C:\Users\Minh\Desktop\E-commerce\Clubie\Clubie\obj\Debug\Clubie.csproj.CopyComplete
 C:\Users\Minh\Desktop\E-commerce\Clubie\Clubie\obj\Debug\Clubie.dll
 C:\Users\Minh\Desktop\E-commerce\Clubie\Clubie\obj\Debug\Clubie.pdb
+C:\Users\Minh\Desktop\E-commerce\Clubie\Clubie\obj\Debug\Clubie.csprojAssemblyReference.cache

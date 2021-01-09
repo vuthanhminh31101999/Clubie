@@ -1,0 +1,6 @@
+﻿@model IEnumerable<Clubie.Models.ProductCategory>
+
+@foreach (var item in Model)
+{
+    <a href="@Url.Action("Search","Products", new { searchString = @Html.DisplayFor(modelItem => item.ProductCategoryName) })" class="list-group-item" style="border:none"><span class="glyphicon glyphicon-menu-right"></span> @Html.DisplayFor(modelItem => item.ProductCategoryName)</a>
+}

@@ -13,7 +13,11 @@ namespace Clubie.Controllers
     public class ProductCategoriesController : Controller
     {
         private ClothingStoreEntities db = new ClothingStoreEntities();
-
+        [ChildActionOnly]
+        public ActionResult ListProductCategories()
+        {
+            return PartialView("ListProductCategories", db.ProductCategories.ToList());
+        }
         // GET: ProductCategories
         public ActionResult Index()
         {

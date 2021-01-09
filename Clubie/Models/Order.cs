@@ -26,6 +26,7 @@ namespace Clubie.Models
         public string DeliveryPhoneNumber { get; set; }
         public string DeliveryAddress { get; set; }
         public string DeliveryStatus { get; set; }
+        public string PaymentMethod { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

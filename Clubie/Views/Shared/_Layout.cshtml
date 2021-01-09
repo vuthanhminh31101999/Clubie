@@ -16,9 +16,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Home", "Search", "Products", new { area = "" }, new { @class = "navbar-brand" })
+                <a href="/Home/Index" class="navbar-brand">
+                    <img src="~/Images/LogoClubie.png" alt="an image" title="The title of this image"/>
+                </a>
             </div>
             <div class="navbar-collapse collapse">
+
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="background-color:none">Product Category <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            @{ Html.RenderAction("ListProductCategories", "ProductCategories"); }
+                        </ul>
+                    </li>
+                </ul>
                 <ul class="nav navbar-nav">
                     <li>
                         <form action="/Products/Search">
@@ -27,6 +38,11 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <form action="/Orders/IndexCustomerView">
+                            <input class="form-control navbar-form" type="text" placeholder="Track order.." name="searchString">
+                        </form>
+                    </li>
                     @if (Convert.ToBoolean(Session["Login"]) == true)
                     {
                         <li>
@@ -35,6 +51,12 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wellcome @Session["Username"]! <span class="caret"></span></a>
                             <ul class="dropdown-menu">
+                                <li>
+                                    @Html.ActionLink("Profile", "ShowProfile", "Users", routeValues: null, htmlAttributes: new { id = "" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Purchase History", "IndexCustomerView", "Orders", routeValues: null, htmlAttributes: new { id = "purchaseHistoryLink" })
+                                </li>
                                 <li>
                                     @Html.ActionLink("Change Password", "ChangePassword", "Manage", routeValues: null, htmlAttributes: new { id = "resetPasswordLink" })
                                 </li>
@@ -60,9 +82,9 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        @*<footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        </footer>*@
     </div>
 
     @Scripts.Render("~/bundles/jquery")

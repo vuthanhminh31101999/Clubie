@@ -14,6 +14,14 @@ namespace Clubie.Controllers
     {
         private ClothingStoreEntities db = new ClothingStoreEntities();
 
+        //Profile
+        public ActionResult ShowProfile()
+        {
+            int userId = Convert.ToInt32(Session["UserId"]);
+            User user = db.Users.Find(userId);
+            return View(user);
+        }
+
         //Log out
         public ActionResult LogOff()
         {

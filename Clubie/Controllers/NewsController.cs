@@ -17,7 +17,7 @@ namespace Clubie.Controllers
         // GET: News
         public ActionResult Index()
         {
-            var news = db.News.Include(@ => @.NewCategory);
+            var news = db.News.Include(n => n.NewCategory);
             return View(news.ToList());
         }
 

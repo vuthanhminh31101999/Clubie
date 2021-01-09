@@ -43,6 +43,7 @@
     <Property Name="DeliveryPhoneNumber" Type="char" MaxLength="11" />
     <Property Name="DeliveryAddress" Type="nvarchar" MaxLength="100" />
     <Property Name="DeliveryStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="PaymentMethod" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -72,6 +73,8 @@
     <Property Name="View" Type="int" />
     <Property Name="Classification" Type="nvarchar" MaxLength="50" />
     <Property Name="Status" Type="bit" />
+    <Property Name="InStock" Type="int" />
+    <Property Name="ImageName" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="ProductCategory">
     <Key>
